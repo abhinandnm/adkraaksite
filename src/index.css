@@ -73,14 +73,14 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem 3rem;
+  padding: 2rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  border-bottom: 1px solid var(--border-color);
-  background-color: rgba(8, 61, 42, 0.7);
-  backdrop-filter: blur(10px);
+  border-bottom: none;
+  background-color: transparent;
+  backdrop-filter: none;
 }
 
 .logo {
