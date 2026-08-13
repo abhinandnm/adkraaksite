@@ -30,7 +30,6 @@ export default function Blob({ clickCoord, selectedProduct }) {
     meshRef.current.rotation.y = t * 0.10;
 
     const scrollRatio = scrollCache.ratio;
-    const isMobile = window.innerWidth < 600;
 
     let targetX = 1.5;
     let targetY = 0;
@@ -38,14 +37,7 @@ export default function Blob({ clickCoord, selectedProduct }) {
     let targetDistort = 0.35;
     let targetColor = new THREE.Color("#2BB381");
 
-    if (isMobile) {
-      // On mobile: smaller sphere, anchored bottom-right as decoration
-      targetX = 1.4;
-      targetY = -1.8;
-      targetScale = 1.1;
-      targetDistort = 0.3;
-      targetColor.set("#2BB381");
-    } else if (scrollRatio < 0.22) {
+    if (scrollRatio < 0.22) {
       targetX = 1.6 + (state.pointer.x * 0.3);
       targetY = 0.1 + (state.pointer.y * 0.3);
       targetScale = 1.8;
