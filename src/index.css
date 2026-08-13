@@ -135,8 +135,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 10%;
+  padding: 8rem 10% 4rem 10%;
   position: relative;
+}
+
+section {
+  scroll-margin-top: 7rem;
 }
 
 .hero-sub {
@@ -726,6 +730,9 @@ body {
   }
   .nav-links {
     display: none; /* Hide standard nav link on small screens for simplicity */
+  }
+  .hero {
+    padding: 6rem 6% 3rem 6%;
   }
   .hero-ctas {
     flex-direction: column;
