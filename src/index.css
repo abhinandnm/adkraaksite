@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap&display=swap');
 
 :root {
   --bg-color: #083D2A;
@@ -11,6 +11,33 @@
   --font-sans: 'Plus Jakarta Sans', sans-serif;
   --border-color: rgba(244, 241, 234, 0.15);
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Performance: GPU compositing hints ─── */
+.founder-polaroid-frame,
+.founder-card,
+.product-tab-card,
+.feature-item,
+.nav-link,
+.nav-cta,
+.btn-primary {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.founder-polaroid-img,
+.founder-polaroid-img-wrapper {
+  will-change: transform, clip-path;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Contain layout/paint to prevent scroll cascade */
+.founders-section,
+.ecosystem-section,
+.contact-section {
+  contain: layout style;
 }
 
 * {
@@ -200,7 +227,7 @@ section {
 .ecosystem-section {
   padding: 8rem 10%;
   border-top: 1px solid var(--border-color);
-  background-color: var(--bg-darker);
+  background-color: transparent;
 }
 
 .section-tag {
@@ -435,96 +462,236 @@ section {
 .founders-section {
   padding: 8rem 10%;
   border-top: 1px solid var(--border-color);
-  background-color: var(--bg-color);
+  background-color: transparent;
 }
 
 .founders-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin-top: 5rem;
 }
 
 .founder-card {
-  border: 1px solid var(--border-color);
-  padding: 3rem 2rem;
-  border-radius: 12px;
-  background: rgba(244, 241, 234, 0.02);
-  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 400px;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  padding: 3rem 2rem 2.5rem 2rem;
+  border-radius: 16px;
+  background: rgba(244, 241, 234, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: var(--transition-smooth);
+  position: relative;
+  overflow: visible;
 }
 
 .founder-card:hover {
   border-color: var(--accent-color);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(-6px);
+}
+
+.founder-polaroid-frame {
+  width: 210px;
+  height: 250px;
+  background: #ffffff;
+  border: 6px solid #ffffff;
+  outline: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px);
-}
-
-.founder-profile {
+  padding: 0;
+  border-radius: 4px;
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
   margin-bottom: 2rem;
+  overflow: visible;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  z-index: 5;
 }
 
-.founder-avatar-placeholder {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid var(--accent-color);
+.polaroid-tilt-0 {
+  transform: rotate(-3deg);
+}
+
+.polaroid-tilt-1 {
+  transform: rotate(2deg) translateY(-5px);
+}
+
+.polaroid-tilt-2 {
+  transform: rotate(-1.5deg);
+}
+
+.founder-card:hover .polaroid-tilt-0 {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.founder-card:hover .polaroid-tilt-1 {
+  transform: rotate(0deg) translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.founder-card:hover .polaroid-tilt-2 {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.polaroid-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 85px;
+  height: 26px;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  border-radius: 2px;
+}
+
+.founder-polaroid-img-wrapper {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  background: #fff;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card:hover .founder-polaroid-img-wrapper {
+  clip-path: inset(-80px 0 0 0);
+}
+
+.founder-polaroid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card:hover .founder-polaroid-img {
+  transform: scale(1.18) translateY(-12%);
+}
+
+.founder-polaroid-placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--accent-color);
   background: rgba(43, 179, 129, 0.1);
 }
 
+.polaroid-caption {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a09e9a;
+  text-align: center;
+  margin-top: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.founder-card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  text-align: center;
+}
+
+.founder-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.founder-card-badge-inline {
+  background: rgba(43, 179, 129, 0.15);
+  border: 1px solid var(--accent-color);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
 .founder-name {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
+  color: var(--text-color);
+  margin: 0;
 }
 
 .founder-role {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--accent-color);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   font-weight: 600;
+  display: block;
+  margin-bottom: 1rem;
 }
 
-.founder-quote {
-  font-size: 1.1rem;
+.founder-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.founder-quote-text {
+  font-size: 0.9rem;
   font-style: italic;
   line-height: 1.5;
   color: var(--text-dim);
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 1.2rem;
+  margin-top: 1.2rem;
+  border-left: 2px solid var(--accent-color);
+  text-align: left;
 }
 
-.founder-quote::before {
-  content: '“';
-  font-size: 3rem;
-  font-family: var(--font-display);
-  color: var(--accent-color);
-  position: absolute;
-  left: 0;
-  top: -1rem;
-  opacity: 0.3;
+@media (max-width: 900px) {
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .founder-card {
+    padding: 2rem;
+  }
+
+  .founder-polaroid-frame {
+    width: 170px;
+    height: 210px;
+  }
+
+  .founder-name {
+    font-size: 1.1rem;
+  }
 }
 
 /* Contact Footer Section */
 .contact-section {
   padding: 8rem 10% 4rem 10%;
   border-top: 1px solid var(--border-color);
-  background-color: var(--bg-darker);
+  background-color: transparent;
 }
 
 .contact-layout {

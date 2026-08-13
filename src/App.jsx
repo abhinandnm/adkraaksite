@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { 
   ArrowRight, Phone, MessageSquare, Mail, ArrowDown, 
@@ -30,28 +30,33 @@ function useScrollReveal(triggerDeps) {
 }
 
 function useCustomCursor() {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const posRef = useRef({ x: -100, y: -100 });
   const [hovered, setHovered] = useState(false);
+  const cursorEl = useRef(null);
 
   useEffect(() => {
+    // Direct DOM manipulation — zero React re-renders per mouse move
     const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      posRef.current = { x: e.clientX, y: e.clientY };
+      if (cursorEl.current) {
+        cursorEl.current.style.left = e.clientX + 'px';
+        cursorEl.current.style.top  = e.clientY + 'px';
+      }
     };
 
     const handleMouseOver = (e) => {
-      const isInteractive = 
-        e.target.tagName === 'A' || 
-        e.target.tagName === 'BUTTON' || 
-        e.target.closest('a') || 
+      const isInteractive =
+        e.target.tagName === 'A' ||
+        e.target.tagName === 'BUTTON' ||
+        e.target.closest('a') ||
         e.target.closest('button') ||
         e.target.classList.contains('product-tab-card') ||
         e.target.closest('.feature-item');
-      
       setHovered(!!isInteractive);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -59,11 +64,11 @@ function useCustomCursor() {
     };
   }, []);
 
-  return { position, hovered };
+  return { cursorEl, hovered };
 }
 
 export default function App() {
-  const { position, hovered } = useCustomCursor();
+  const { cursorEl, hovered } = useCustomCursor();
   const [selectedProduct, setSelectedProduct] = useState(0); // default to first product expanded
   const [clickCoord, setClickCoord] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -202,6 +207,8 @@ export default function App() {
     {
       initials: "AD",
       name: "Adarsh P Pradeep",
+      image: "/adarsh.png",
+      tapeGradient: "linear-gradient(135deg, #2BB381, #44F1A6)",
       role: "Founder · CEO · CTO",
       desc: "Engineer and founder. Leads product architecture, engineering, and the technology roadmap at Adkrak.",
       quote: "Great software should feel invisible — it does its job, then gets out of the way. Every feature we ship gets measured by that one bar."
@@ -209,6 +216,8 @@ export default function App() {
     {
       initials: "KR",
       name: "Jaikrishna Jayan",
+      image: "/jaikrishna.png",
+      tapeGradient: "linear-gradient(135deg, #0d4631, #2BB381)",
       role: "Founder · CEO · CFO",
       desc: "Finance and operations. Runs the numbers, the runway, and the promises we make to our customers.",
       quote: "Every rupee our customers spend with us should return ten-fold in time saved and productivity gained. That's the deal — and we hold ourselves to it."
@@ -216,6 +225,8 @@ export default function App() {
     {
       initials: "AK",
       name: "Akash Harikumar",
+      image: "/akash.png",
+      tapeGradient: "linear-gradient(135deg, #2BB381, #ECC94B)",
       role: "Founder · CEO · CMO",
       desc: "Brand, marketing and customer growth. Owns how the world hears about Adkrak.",
       quote: "We're building for the everyday industries — the restaurants, schools and roads that make real life happen. They deserve tools as good as their work."
@@ -226,8 +237,8 @@ export default function App() {
     <div className="app-container" onClick={handleAppClick}>
       {/* Premium custom mouse cursor pointer */}
       <div 
+        ref={cursorEl}
         className={`custom-cursor ${hovered ? 'hovered' : ''}`}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
       />
 
       {/* fixed 3D background WebGL deck */}
@@ -236,7 +247,7 @@ export default function App() {
           <ambientLight intensity={0.4} />
           <directionalLight position={[5, 8, 5]} intensity={1.5} />
           <directionalLight position={[-5, -5, -5]} intensity={0.3} color="#2BB381" />
-          <Blob clickCoord={clickCoord} />
+          <Blob clickCoord={clickCoord} selectedProduct={selectedProduct} />
         </Canvas>
       </div>
 
@@ -363,23 +374,42 @@ export default function App() {
           <div className="founders-grid">
             {founders.map((founder, idx) => (
               <div className="founder-card reveal" key={idx}>
-                <div>
-                  <div className="founder-profile">
-                    <div className="founder-avatar-placeholder">
-                      {founder.initials}
-                    </div>
-                    <div>
-                      <h3 className="founder-name">{founder.name}</h3>
-                      <span className="founder-role">{founder.role}</span>
-                    </div>
+                {/* Top: Polaroid Frame */}
+                <div className={`founder-polaroid-frame polaroid-tilt-${idx}`}>
+                  <div className="founder-polaroid-img-wrapper">
+                    {founder.image ? (
+                      <img 
+                        src={founder.image} 
+                        alt={founder.name} 
+                        className="founder-polaroid-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div className="founder-polaroid-placeholder">
+                        {founder.initials}
+                      </div>
+                    )}
                   </div>
-                  <p className="founder-desc" style={{ color: 'var(--text-dim)', fontSize: '0.95rem' }}>
-                    {founder.desc}
-                  </p>
+                  <div className="polaroid-caption">{founder.initials} · {idx + 1}</div>
                 </div>
-                <blockquote className="founder-quote">
-                  {founder.quote}
-                </blockquote>
+
+                {/* Bottom: Details Content */}
+                <div className="founder-card-content">
+                  <div>
+                    <div className="founder-card-header">
+                      <h3 className="founder-name">{founder.name}</h3>
+                      <span className="founder-card-badge-inline">{founder.initials}</span>
+                    </div>
+                    <span className="founder-role">{founder.role}</span>
+                    <p className="founder-desc">
+                      {founder.desc}
+                    </p>
+                  </div>
+                  <blockquote className="founder-quote-text">
+                    {founder.quote}
+                  </blockquote>
+                </div>
               </div>
             ))}
           </div>
