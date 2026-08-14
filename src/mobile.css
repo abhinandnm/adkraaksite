@@ -101,11 +101,12 @@
     font-size: 0.8rem;
   }
   .hero-title {
-    font-size: clamp(2.5rem, 12vw, 4rem);
-    margin-bottom: 1.2rem;
+    font-size: clamp(2rem, 10vw, 3rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
   }
   .hero-desc {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 2rem;
   }
   .hero-ctas {
@@ -123,8 +124,8 @@
     padding: 5rem 6% 3rem 6%;
   }
   .section-title {
-    font-size: clamp(1.8rem, 9vw, 3rem);
-    margin-bottom: 3rem;
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    margin-bottom: 2.5rem;
   }
 
   /* ── Products: 2-col compact grid ── */
@@ -145,13 +146,13 @@
   }
   .product-details-layout {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
   .product-name {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   .product-tagline {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   .feature-item {
     font-size: 0.95rem;
@@ -198,7 +199,7 @@
     gap: 2rem;
   }
   .contact-heading {
-    font-size: clamp(1.6rem, 8vw, 2.5rem);
+    font-size: clamp(1.4rem, 7vw, 2rem);
   }
   .contact-form {
     padding: 1.5rem;
