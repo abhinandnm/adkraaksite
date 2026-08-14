@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { 
-  ArrowRight, Phone, MessageSquare, Mail, ArrowDown, 
-  GraduationCap, Utensils, ClipboardCheck, FileSpreadsheet, Compass, Code2 
+import {
+  ArrowRight, Phone, MessageSquare, Mail, ArrowDown,
+  GraduationCap, Utensils, ClipboardCheck, FileSpreadsheet, Compass, Code2
 } from 'lucide-react';
 import Blob from './Blob';
 
@@ -40,7 +40,7 @@ function useCustomCursor() {
       posRef.current = { x: e.clientX, y: e.clientY };
       if (cursorEl.current) {
         cursorEl.current.style.left = e.clientX + 'px';
-        cursorEl.current.style.top  = e.clientY + 'px';
+        cursorEl.current.style.top = e.clientY + 'px';
       }
     };
 
@@ -236,7 +236,7 @@ export default function App() {
   return (
     <div className="app-container" onClick={handleAppClick}>
       {/* Premium custom mouse cursor pointer */}
-      <div 
+      <div
         ref={cursorEl}
         className={`custom-cursor ${hovered ? 'hovered' : ''}`}
       />
@@ -253,7 +253,7 @@ export default function App() {
 
       {/* HTML Layout Content Deck */}
       <div className="content-overlay">
-        
+
         {/* Navigation Header */}
         <header className="header">
           <a href="#" className="logo">adkrak.</a>
@@ -261,7 +261,7 @@ export default function App() {
             <a href="#products" className="nav-link">Products</a>
             <a href="#founders" className="nav-link">Founders</a>
             <a href="#contact" className="nav-link">Contact</a>
-            <a 
+            <a
               href={whatsappBaseUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -298,8 +298,8 @@ export default function App() {
               const ProductIcon = product.icon;
               const isSelected = selectedProduct === idx;
               return (
-                <button 
-                  key={idx} 
+                <button
+                  key={idx}
                   className={`product-tab-card ${isSelected ? 'active' : ''}`}
                   onClick={() => setSelectedProduct(isSelected ? null : idx)}
                 >
@@ -318,8 +318,8 @@ export default function App() {
             {products.map((product, idx) => {
               const isSelected = selectedProduct === idx;
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`product-details-panel ${isSelected ? 'show' : ''}`}
                 >
                   {isSelected && (
@@ -343,7 +343,7 @@ export default function App() {
                               </li>
                             ))}
                           </ul>
-                          <a 
+                          <a
                             href={`${whatsappBaseUrl}?text=${encodeURIComponent(product.whatsappText)}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -370,7 +370,7 @@ export default function App() {
         <section id="founders" className="founders-section">
           <span className="section-tag reveal">The Founders</span>
           <h2 className="section-title reveal">AD · KR · AK</h2>
-          
+
           <div className="founders-grid">
             {founders.map((founder, idx) => (
               <div className="founder-card reveal" key={idx}>
@@ -378,9 +378,9 @@ export default function App() {
                 <div className={`founder-polaroid-frame polaroid-tilt-${idx}`}>
                   <div className="founder-polaroid-img-wrapper">
                     {founder.image ? (
-                      <img 
-                        src={founder.image} 
-                        alt={founder.name} 
+                      <img
+                        src={founder.image}
+                        alt={founder.name}
                         className="founder-polaroid-img"
                         loading="lazy"
                         decoding="async"
@@ -426,7 +426,7 @@ export default function App() {
               </div>
 
               <div className="contact-channels reveal">
-                <a 
+                <a
                   href={`${whatsappBaseUrl}?text=${encodeURIComponent("Hello! I'd like to get in touch with a founder.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -475,36 +475,36 @@ export default function App() {
                 <form className="contact-form" onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label className="form-label" htmlFor="name">Your Name</label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      name="name" 
-                      className="form-input" 
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="form-input"
                       placeholder="Enter name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      required 
+                      required
                     />
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="email">Your Email</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      name="email" 
-                      className="form-input" 
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="form-input"
                       placeholder="Enter email address"
                       value={formData.email}
                       onChange={handleInputChange}
-                      required 
+                      required
                     />
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="message">How can we help?</label>
-                    <textarea 
-                      id="message" 
-                      name="message" 
-                      className="form-textarea" 
+                    <textarea
+                      id="message"
+                      name="message"
+                      className="form-textarea"
                       placeholder="Tell us about your project"
                       value={formData.message}
                       onChange={handleInputChange}

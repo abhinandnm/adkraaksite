@@ -37,24 +37,31 @@ export default function Blob({ clickCoord, selectedProduct }) {
     let targetDistort = 0.35;
     let targetColor = new THREE.Color("#2BB381");
 
+    // Use 968px to match the CSS breakpoints for mobile/tablet
+    const isMobile = window.innerWidth <= 968;
+
+    // Threshold when it transitions to the Founders section
+    const foundersStartRatio = isMobile ? 0.50 : 0.64;
+
     if (scrollRatio < 0.22) {
       targetX = 1.6 + (state.pointer.x * 0.3);
       targetY = 0.1 + (state.pointer.y * 0.3);
       targetScale = 1.8;
       targetDistort = 0.35;
       targetColor.set("#2BB381");
-    } else if (scrollRatio < 0.64) {
+    } else if (scrollRatio < foundersStartRatio) {
       targetX = 1.6 + (state.pointer.x * 0.3);
       targetY = -0.3 + (state.pointer.y * 0.3);
       targetScale = 1.6;
       targetDistort = 0.38;
       targetColor.set("#2BB381");
-    } else if (scrollRatio < 0.82) {
+    } else if (scrollRatio < 0.70) {
       targetX = 0;
       targetY = 1.2;
       targetScale = 1.1;
       targetDistort = 0.3;
-      targetColor.set("#0d4631");
+      // Make it black on mobile, dark green on desktop
+      targetColor.set(isMobile ? "#000000" : "#0d4631");
     } else {
       targetX = 1.7 + (state.pointer.x * 0.3);
       targetY = -0.8 + (state.pointer.y * 0.3);
