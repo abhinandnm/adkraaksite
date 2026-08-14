@@ -575,7 +575,7 @@ section {
 }
 
 .founder-card:hover .founder-polaroid-img {
-  transform: scale(1.18) translateY(-12%);
+  transform: scale(1.05) translateY(-5%);
 }
 
 .founder-polaroid-placeholder {
