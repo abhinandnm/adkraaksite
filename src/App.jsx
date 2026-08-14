@@ -225,7 +225,7 @@ export default function App() {
     {
       initials: "AK",
       name: "Akash Harikumar",
-      image: "/akash.png",
+      image: "/akash_black_bg.jpg",
       bgColor: "#000000",
       tapeGradient: "linear-gradient(135deg, #2BB381, #ECC94B)",
       role: "Founder · CEO · CMO",
