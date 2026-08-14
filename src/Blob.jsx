@@ -118,7 +118,12 @@ export default function Blob({ clickCoord, selectedProduct }) {
       ref={meshRef} 
       position={[1.5, 0, 0]} 
       scale={[1.8, 1.8, 1.8]}
-      onPointerDown={(e) => { e.stopPropagation(); setIsInteracting(true); }}
+      onPointerDown={(e) => { 
+        if (scrollCache.ratio >= 0.90) {
+          e.stopPropagation(); 
+          setIsInteracting(true); 
+        }
+      }}
       onPointerUp={(e) => { e.stopPropagation(); setIsInteracting(false); }}
       onPointerOut={(e) => { e.stopPropagation(); setIsInteracting(false); }}
     >
