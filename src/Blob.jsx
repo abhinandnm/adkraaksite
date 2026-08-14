@@ -55,7 +55,7 @@ export default function Blob({ clickCoord, selectedProduct }) {
       targetScale = 1.6;
       targetDistort = 0.38;
       targetColor.set("#2BB381");
-    } else if (scrollRatio < 0.70) {
+    } else if (scrollRatio < 0.80) {
       targetX = 0;
       targetY = 1.2;
       targetScale = 1.1;
