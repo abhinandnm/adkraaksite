@@ -19,6 +19,7 @@ if (typeof window !== 'undefined') {
 
 export default function Blob({ clickCoord, selectedProduct }) {
   const meshRef = useRef();
+  const [isInteracting, setIsInteracting] = React.useState(false);
 
   useFrame((state) => {
     if (!meshRef.current) return;
@@ -70,8 +71,16 @@ export default function Blob({ clickCoord, selectedProduct }) {
       targetColor.set("#2BB381");
     }
 
-    // Click-drift override
-    if (clickCoord) {
+    // Direct interaction override (Drag/Touch)
+    if (isInteracting) {
+      targetX = state.pointer.x * (state.viewport.width / 2);
+      targetY = state.pointer.y * (state.viewport.height / 2);
+      targetScale = targetScale * 1.4; // Expand
+      targetDistort = 0.85; // Get super wobbly
+      targetColor.set("#ECC94B"); // Change to gold color
+    } 
+    // Click-drift override (from background layout clicks)
+    else if (clickCoord) {
       const elapsed = (Date.now() - clickCoord.time) / 1000;
       if (elapsed < 2.5) {
         const clickX = clickCoord.x * (state.viewport.width / 2);
@@ -105,7 +114,14 @@ export default function Blob({ clickCoord, selectedProduct }) {
   });
 
   return (
-    <mesh ref={meshRef} position={[1.5, 0, 0]} scale={[1.8, 1.8, 1.8]}>
+    <mesh 
+      ref={meshRef} 
+      position={[1.5, 0, 0]} 
+      scale={[1.8, 1.8, 1.8]}
+      onPointerDown={(e) => { e.stopPropagation(); setIsInteracting(true); }}
+      onPointerUp={(e) => { e.stopPropagation(); setIsInteracting(false); }}
+      onPointerOut={(e) => { e.stopPropagation(); setIsInteracting(false); }}
+    >
       <sphereGeometry args={[1, 48, 48]} />
       <MeshDistortMaterial
         color="#2BB381"
