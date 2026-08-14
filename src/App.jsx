@@ -226,6 +226,7 @@ export default function App() {
       initials: "AK",
       name: "Akash Harikumar",
       image: "/akash.png",
+      bgColor: "#000000",
       tapeGradient: "linear-gradient(135deg, #2BB381, #ECC94B)",
       role: "Founder · CEO · CMO",
       desc: "Brand, marketing and customer growth. Owns how the world hears about Adkrak.",
@@ -380,7 +381,10 @@ export default function App() {
               <div className="founder-card reveal" key={idx}>
                 {/* Top: Polaroid Frame */}
                 <div className={`founder-polaroid-frame polaroid-tilt-${idx}`}>
-                  <div className="founder-polaroid-img-wrapper">
+                  <div 
+                    className="founder-polaroid-img-wrapper"
+                    style={{ backgroundColor: founder.bgColor || '#ffffff' }}
+                  >
                     {founder.image ? (
                       <img
                         src={founder.image}
