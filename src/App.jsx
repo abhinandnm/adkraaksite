@@ -275,7 +275,7 @@ export default function App() {
         {/* Hero Section */}
         <section className="hero">
           <span className="hero-sub reveal">Adkrak Innovations Pvt Ltd</span>
-          <h1 className="hero-title reveal">Your Vision,<br />Architected to<br />Perfection.</h1>
+          <h1 className="hero-title reveal">Your Vision, Architected<br />to<br />Perfection.</h1>
           <p className="hero-desc reveal">
             Vertical SaaS for restaurants, schools, exams and roads.<br />
             Mobile-first, India-priced, built in Kerala.
