@@ -1,16 +1,121 @@
-# React + Vite
+# Adkraak
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, interactive website built for **Adkraak**, focused on immersive visuals, smooth animations, responsive design, and an engaging user experience.
 
-Currently, two official plugins are available:
+## 🌐 Live Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[Visit the Live Website →](https://adkraksite.vercel.app/)**
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Interactive 3D visual elements
+* Smooth animations and transitions
+* Scroll-triggered reveal animations
+* Custom interactive cursor
+* Responsive desktop and mobile layouts
+* Interactive product/service sections
+* Contact form interface
+* Custom branding and visual assets
+* Modern icon-based UI
 
-## Expanding the Oxlint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+* **React 19** — UI development
+* **Vite** — development and production build tooling
+* **Three.js** — 3D graphics
+* **React Three Fiber** — React renderer for Three.js
+* **@react-three/drei** — Three.js helpers
+* **Framer Motion** — animations and transitions
+* **Lucide React** — icons
+* **Oxlint** — linting
+
+## 📁 Project Structure
+
+```text
+adkraaksite/
+├── public/
+│   ├── *.png / *.jpg       # Images and branding assets
+│   ├── favicon.svg
+│   └── icons.svg
+│
+├── src/
+│   ├── assets/              # Local assets
+│   ├── App.jsx              # Main application
+│   ├── App.css              # Application styles
+│   ├── Blob.jsx             # Interactive 3D blob component
+│   ├── index.css            # Global styles
+│   ├── mobile.css           # Mobile-specific styles
+│   └── main.jsx             # React entry point
+│
+├── index.html
+├── vite.config.js
+├── package.json
+└── README.md
+```
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/abhinandnm/adkraaksite.git
+cd adkraaksite
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+Vite will provide the local development URL in the terminal.
+
+## 📦 Production Build
+
+Create an optimized production build:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## 🔎 Linting
+
+Run Oxlint:
+
+```bash
+npm run lint
+```
+
+## ☁️ Deployment
+
+The website is deployed using **Vercel**.
+
+### Live Website
+
+https://adkraksite.vercel.app/
+
+## 📌 Repository
+
+https://github.com/abhinandnm/adkraaksite
+
+## 👨‍💻 Author
+
+**Abhinand N M**
+
+GitHub: https://github.com/abhinandnm
+
+## 📄 License
+
+No license has been specified for this repository.
