@@ -1,6 +1,6 @@
 # Adkraak
 
-A modern, responsive website built for **Adkraak**, featuring interactive visuals, smooth animations, and a clean user experience.
+A modern, responsive website built for **Adkraak PVT LTD**, featuring interactive visuals, smooth animations, and a clean user experience.
 
 ## 🌐 Live Preview
 
